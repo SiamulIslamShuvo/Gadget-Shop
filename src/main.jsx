@@ -7,12 +7,16 @@ import Home from "./components/Home";
 import About from "./components/About";
 import ErrorPage from "./components/ErrorPage";
 import Shop from "./components/Shop";
+import Cart from "./components/Cart";
+import { productsAndCartData } from "./Loaders/getCart$ProductData";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         errorElement: <ErrorPage />,
+        loader: productsAndCartData,
         children: [
             {
                 path: "/",
@@ -27,10 +31,18 @@ const router = createBrowserRouter([
                 path: "/about",
                 element: <About />,
             },
+            {
+                path: "/cart",
+                element: <Cart />,
+                loader: productsAndCartData,
+            },
         ],
     },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <RouterProvider router={router} />
+    <>
+        <Toaster />
+        <RouterProvider router={router} />
+    </>
 );
